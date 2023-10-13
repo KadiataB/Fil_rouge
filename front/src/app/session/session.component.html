@@ -1,0 +1,61 @@
+<form class="w-full h-full" [formGroup]="session">
+
+  <div class="w-full h-[88vh] flex flex-col justify-center  items-center">
+    <div class="w-[65%] h-[80%] bg-slate-200 shadow-lg rounded">
+      <div class="w-full h-[20%] flex items-center justify-evenly bg-slate-300 rounded shadow mb-3">
+        <select  (change)="afficheSalle($event)" class="w-[30%] m-1 h-[40%] rounded shadow-lg" formControlName="mode">
+          <option  selected>Choisir un mode</option>
+          <option [value]="mode" *ngFor="let mode of modes">{{mode}}</option>
+        </select>
+        <ng-container>
+          <select [ngClass]="{'hidden' : display}" class="w-[30%] m-1 h-[40%] rounded shadow-lg" formControlName="salle_id">
+            <option [value]="" selected>Choisir une salle</option>
+            <option [value]="salle.id" *ngFor="let salle of salles">{{salle.libelle}}</option>
+          </select>
+       </ng-container>
+        <!-- <select hidden class="w-[30%] m-1 h-[40%] rounded shadow-lg"   formControlName="cours_id">
+          <option  selected>Choisir un cours</option>
+          <option [value]="c.classe[0].id"  *ngFor="let c of cours">{{c.module + " " + c.professeur.prenom + " " + c.professeur.nom}}</option>
+        </select> -->
+        <select  class="w-[30%] m-1 h-[40%] rounded shadow-lg" (change)="getClasses()"  formControlName="cours_id">
+          <option  selected>Choisir un cours</option>
+          <option [value]="c.id"  *ngFor="let c of cours">{{c.module + " " + c.professeur.prenom + " " + c.professeur.nom}}</option>
+        </select>
+        <select class="w-[30%] m-1 h-[40%] rounded shadow-lg" formControlName="classe_id">
+          <option value="">Choisir une classe</option>
+          <option [value]="classe.classe.id" *ngFor="let classe of classes">{{classe.classe.libelle}}</option>
+        </select>
+      </div>
+      <div class="w-full flex items-center justify-center h-[60%] bg-slate-100 mb-3 rounded">
+        <div class="w-[70%] h-full p-2 flex items-center flex-col justify-center">
+          <div class="w-full flex justify-evenly rounded bg-slate-200 items-center h-[20%] m-3 shadow-lg">
+            <label for="">Heure de début</label>
+            <input type="time" class="h-[80%] w-[40%] rounded shadow" formControlName="hd">
+          </div>
+          <div class="w-full flex justify-evenly rounded bg-slate-200 items-center h-[20%] m-3 shadow-lg">
+            <label for="" class="mr-7">Heure de fin</label>
+            <input type="time" class="h-[80%] w-[40%] rounded shadow" formControlName="hf">
+          </div>
+          <div class="w-full flex justify-evenly rounded bg-slate-200 items-center h-[20%] m-3 shadow-lg">
+            <label for="" class="mr-20">Durée</label>
+            <input type="time" class="h-[80%] w-[40%] rounded shadow" formControlName="duree">
+          </div>
+          <div class="w-full flex justify-evenly rounded bg-slate-200 items-center h-[20%] m-3 shadow-lg">
+            <label for="" class="mr-20">Date</label>
+            <input type="date" class="h-[80%] w-[40%] rounded shadow" formControlName="date">
+          </div>
+
+
+        </div>
+
+      </div>
+      <div class="w-full h-[15%] flex justify-end p-2 bg-slate-300 shadow-lg">
+        <div class="h-full flex items-center ">
+          <button (click)="insertSession()" class=" p-2 bg-blue-200 rounded shadow-lg">Valider</button>
+          <button class="p-2 bg-red-600 rounded ml-2 shadow-lg">Annuler</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</form>

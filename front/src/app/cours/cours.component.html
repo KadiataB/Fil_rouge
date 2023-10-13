@@ -1,0 +1,37 @@
+<form  [formGroup]="cours" (submit)="insertCours()" class="w-full h-full">
+<div class="h-[88vh] w-full flex justify-center items-center">
+    <div class="h-[73vh] w-[60%] bg-slate-200 shadow-lg rounded">
+     <div class="w-full h-20 bg-slate-400 flex justify-evenly items-center shadow-lg rounded ">
+       <select formControlName="semestre_id" id=""  class="w-[30%] h-[45%] rounded shadow-lg">
+        <option *ngFor="let semestre of semestres"  [value]="semestre.id">{{semestre.libelle}}</option>
+       </select>
+       <select formControlName="classe_id" class="w-[30%] h-[45%] rounded shadow-lg">
+        <option *ngFor="let classe of classes" [value]="classe.id">{{classe.libelle}}</option>
+       </select>
+     </div>
+     <div class="w-full h-[70%] flex flex-col justify-center items-center mt-10">
+
+        <div class="w-[80%] rounded border-dotted border-4 border-blue-400  h-[90%]">
+          <div class="w-full flex justify-evenly items-center h-[45%]">
+            <select formControlName="module_id" id="" (change)="getProfs()" class="w-[30%] h-[40%] rounded shadow-lg">
+              <option *ngFor="let module of modules" [value]="module.id" >{{module.libelle}}</option>
+            </select>
+            <select formControlName="professeur_id" id="" class="w-[30%] h-[40%] rounded shadow-lg">
+              <option *ngFor="let mod of mods" [value]="mod.professeur.id">{{mod.professeur.prenom}} {{mod.professeur.nom}}</option>
+            </select>
+          </div>
+          <div class="w-full flex flex-col justify-evenly items-center h-[45%] ">
+            <label for="">Entrer le nombre d'heures</label>
+            <input type="number" class="p-2 rounded shadow-lg" formControlName="heures">
+            <small class="text-red-600" *ngIf="(cours.get('heures')?.invalid) && ((cours.get('heures')?.dirty) || (cours.get('heures')?.touched))">Le champ est invalide.</small>
+          </div>
+        </div>
+        <div class="w-[80%] flex justify-end mt-2">
+          <button type="submit" [disabled]="cours.valid" class="border border-black p-2 rounded bg-blue-300" [disabled]="cours.invalid">Valider</button>
+          <button class="border border-black ml-4 rounded bg-red-600 p-2">Annuler</button>
+        </div>
+
+     </div>
+    </div>
+  </div>
+</form>
