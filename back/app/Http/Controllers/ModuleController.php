@@ -39,41 +39,6 @@ class ModuleController extends Controller
 
         }
 
-        public function store(Request $request)
-        {
-            $request->validate([
-                'module_id' => ['required'],
-                'semestre_id' => ['required'],
-                'professeur_id' => ['required']
-            ]);
-          DB::beginTransaction();
-
-          $cours =  Cours::create([
-                "module_id"=>$request->module_id,
-                "semestre_id"=>$request->semestre_id,
-                "professeur_id"=>$request->professeur_id
-            ]);
-
-            // $cours->classe->attach($request->classes);
-            // $cours->semestre->attach($request->semestres);
-            
-            CoursClasse::create ([
-                "heures"=>$request->heures,
-                "classe_id"=>$request->classe_id,
-                "cours_id"=>$cours->id
-            ]);
-            CoursSemestre:: create([
-                "semestre_id"=>$request->semestre_id,
-                "cours_id"=>$cours->id
-            ]);
-
-            DB::commit();
-
-            return response([
-                "message" => "insertion reussie",
-                "data"=>$cours
-            ], Response::HTTP_ACCEPTED);
-        }
     /**
      * Show the form for creating a new resource.
      */

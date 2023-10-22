@@ -19,17 +19,35 @@ class CoursResource extends JsonResource
             // "module"=>ModuleResource::collection($this->module),
             "module"=>$this->module->libelle,
             "professeur"=>UserResource::make($this->professeur),
-            "classe"=>$this->classe->map(function($c){
-                return [
-                    "id"=>$c->pivot->id,
-                    "heures"=>$c->pivot->heures
-                ];
-            }),
+            "heures"=>$this->secondesVersHeures($this->heures),
+            "hr"=>$this->secondesVersHeuresMinutes($this->hr),
+            // "classe"=>$this->classe->map(function($c){
+            //     return [
+            //         "id"=>$c->pivot->id,
+            //         // "heures"=>$c->pivot->heures
+            //     ];
+            // }),
             "semestre"=>$this->semestre->map(function($s){
                 return [
                     "libelle"=>$s->libelle
                 ];
             })
+        ];
+    }
+
+    public function secondesVersHeures($secondes)
+    {
+        return floor($secondes / 3600);
+
+    }
+    public function secondesVersHeuresMinutes($secondes)
+    {
+        $heures = floor($secondes / 3600);
+        $minutes = floor(($secondes % 3600) / 60);
+
+        return [
+            'heures' => $heures,
+            'minutes' => $minutes
         ];
     }
 }

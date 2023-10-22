@@ -1,60 +1,70 @@
+<!-- <div class="w-full h-full "> -->
 
+<div class="w-full h-[90%]  flex mt-8">
 
-  <!-- <div class="w-full h-full "> -->
-
-    <div class="w-full h-[90%]  flex ">
-
-      <div class="w-full h-[88vh] bg-slate-100 overflow-auto">
-        <div class="w-full h-[60%] items-center justify-center p-3 flex flex-col ">
-
-
-          <div class="relative w-[80%] overflow-scroll bg-slate-200 shadow-2xl sm:rounded-lg p-6 mt-4">
-            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 shadow-xl">
-              <thead class="text-xs text-gray-700 uppercase  dark:bg-gray-700 bg-slate-300  shadow-lg">
-                <tr>
-                  <th scope="col" class="px-6 py-3 shadow-lg">
-                    Module
-                  </th>
-                  <th scope="col" class="px-6 py-3 shadow-lg">
-                    Professeur
-                  </th>
-                  <th scope="col" class="px-6 py-3 shadow-lg">
-                    Heures
-                  </th>
-                  <th scope="col" class="px-6 py-3 shadow-lg">
-                    Semestre
-                  </th>
-                  <th scope="col" class="px-6 py-3">
-                    <span class="sr-only">Edit</span>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let c of cours"
-                  class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {{c.module}}
-                  </th>
-                  <td class="px-6 py-4">
-                    {{c.professeur.prenom + " " + c.professeur.nom}}
-                  </td>
-                  <td class="px-6 py-4">
-                    {{c.classe[0].heures}}
-                  </td>
-                  <td class="px-6 py-4">
-                    {{c.semestre[0].libelle}}
-                  </td>
-                  <td class="px-6 py-4 text-right">
-                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                  </td>
-                </tr>
-
-
-              </tbody>
-            </table>
-          </div>
-
+  <div class="w-full h-[88vh] bg-slate-100 overflow-auto">
+    <div class="w-full h-[90%] items-center justify-center p-3 flex flex-col ">
+      <div class="h-[10%]  w-full flex justify-evenly items-center m-5">
+        <p class="mr-2">Filtrer par:</p>
+        <div class="w-[20%] h-full">
+          <p >Module</p>
+          <select type="text" class="h-[75%] w-full rounded shadow-xl mr-5"></select>
+          <option value=""></option>
+        </div>
+        <div class="w-[20%] h-full">
+          <p >Professeur</p>
+          <select type="text" class="h-[75%] w-full rounded shadow-xl mr-5">
+          <option value=""></option>
+          </select>
         </div>
       </div>
+      <div class="relative w-[80%] overflow-scroll bg-sky-100 shadow-2xl sm:rounded-lg p-6 mt-4">
+        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 shadow-xl">
+          <thead class="text-xs text-gray-700 uppercase  dark:bg-gray-700 bg-slate-300  shadow-lg">
+            <tr>
+              <th scope="col" class="px-6 py-3 shadow-lg">
+                Module
+              </th>
+              <th scope="col" class="px-6 py-3 shadow-lg">
+                Professeur
+              </th>
+              <th scope="col" class="px-6 py-3 shadow-lg">
+                Heures
+              </th>
+              <th scope="col" class="px-6 py-3 shadow-lg">
+                Semestre
+              </th>
+              <th scope="col" class="px-6 py-3">
+                <span class="sr-only">Edit</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let c of cours"
+              class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+              <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                {{c.module}}
+              </th>
+              <td class="px-6 py-4">
+                {{c.professeur.prenom + " " + c.professeur.nom}}
+              </td>
+              <td class="px-6 py-4">
+                {{c.heures +"h"}}
+              </td>
+              <td class="px-6 py-4">
+                {{c.semestre[0].libelle}}
+              </td>
+              <td class="px-6 py-4 text-right">
+                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+              </td>
+            </tr>
+
+
+          </tbody>
+        </table>
+      </div>
+
     </div>
-  <!-- </div> -->
+  </div>
+</div>
+<!-- </div> -->

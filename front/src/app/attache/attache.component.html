@@ -1,0 +1,52 @@
+<div class="w-full h-[90%] flex items-center justify-center mt-24">
+  <div class="relative w-[80%] overflow-scroll bg-sky-100 shadow-2xl sm:rounded-lg p-6 mt-4">
+    <table class="w-full text-sm h-[80%]  text-left text-gray-500 dark:text-gray-400 shadow-xl">
+      <thead class="text-xs text-gray-700 uppercase  dark:bg-gray-700 bg-slate-300  shadow-lg">
+        <tr>
+          <th scope="col" class="px-6 py-3 shadow-lg">
+            Motif
+          </th>
+          <th scope="col" class="px-6 py-3 shadow-lg">
+            Professeur
+          </th>
+          <th scope="col" class="px-6 py-3 shadow-lg flex items-center justify-center">
+            Session-cours
+          </th>
+          <th scope="col" class="px-6 py-3 shadow-lg ">
+            Etat
+          </th>
+          <th scope="col" class="px-6 py-3 shadow-lg flex items-center justify-center">
+            Edit
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let d of demandes"
+          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+          <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            {{d.motif}}
+          </td>
+          <td class="px-6 py-4">
+            {{d.session_cours.cours_classe.cours.professeur.prenom + " " + d.session_cours.cours_classe.cours.professeur.nom}}
+          </td>
+          <td class="px-6 py-4 flex items-center justify-center">
+            {{d.session_cours.cours_classe.classe.libelle +" " +
+              d.session_cours.cours_classe.cours.module  +" " +
+              d.session_cours.duree.heures+'h'+d.session_cours.duree.minutes +" "+
+              d.session_cours.cours_classe.cours.semestre[0].libelle + " " +
+              d.session_cours.date
+            }}
+          </td>
+          <td class="px-6 py-4">
+            {{d.etat}}
+          </td>
+          <td class="px-6 py-4 text-right flex justify-evenly items-center">
+            <button class="bg-lime-300 rounded p-2" (click)="accepter(d.id)">Accepter</button>
+            <button class=" bg-yellow-300 rounded p-2" (click)="refuser(d.id)">Refuser</button>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -6,6 +6,8 @@ import { Classe } from '../interfaces/classe';
 import { Semestre } from '../interfaces/semestre';
 import { Module } from '../interfaces/module';
 import { ModuleProfesseur, Professeur } from '../interfaces/module-professeur';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cours',
@@ -22,7 +24,7 @@ export class CoursComponent implements OnInit{
   profs:any;
    regex:RegExp = /^[1-9]\d?$|^100$/;
 
-  constructor(private fb:FormBuilder, private service:CoursService) {
+  constructor(private fb:FormBuilder, private service:CoursService,private toastr: ToastrService,private router:Router) {
 
   this.cours=this.fb.group({
 
@@ -43,6 +45,8 @@ ngOnInit(): void {
     console.log(this.cours.value);
     this.service.insertCours(this.cours.value).subscribe((res)=>{
       console.log(res);
+      this.router.navigate(['/liste-cours'])
+      this.toastr.success('Cours ajouté avec succès');
 
     })
 

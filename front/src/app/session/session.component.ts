@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Classe } from '../interfaces/classe';
 import { Cours } from '../interfaces/cours';
 import { CoursClasse } from '../interfaces/cours-classe';
@@ -22,7 +24,7 @@ export class SessionComponent implements OnInit {
   dat:any;
   display:boolean=true;
   // hd: string = '08:00:00';
-  constructor(private service: CoursService, private fb: FormBuilder) {
+  constructor(private service: CoursService, private fb: FormBuilder,private router:Router,private toastr:ToastrService) {
     this.session = this.fb.group({
       salle_id: '',
       classe_id: '',
@@ -30,7 +32,6 @@ export class SessionComponent implements OnInit {
       mode: '',
       hd: '',
       hf: '',
-      duree:'',
       date:''
     });
   }
@@ -67,9 +68,16 @@ export class SessionComponent implements OnInit {
   }
 
   insertSession() {
+    console.log(this.session.value);
+
     this.service.session(this.session.value).subscribe((response) =>{
       console.log(response);
-    })
+      this.router.navigate(['/liste-session'])
+      this.toastr.success('Session de cours ajouté avec succès');
+    },error=>{
+      this.toastr.error(error.error.message)
+    });
+
   }
 
   afficheSalle(event:Event) {

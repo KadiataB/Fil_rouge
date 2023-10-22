@@ -1,0 +1,16 @@
+<body
+  class="bg-slate-100 p-6  flex justify-center items-center h-[100%] mt-16 w-full flex-wrap gap-6 overflow-y-scroll">
+  <div class="bg-sky-200 h-full shadow-md w-[13%] flex items-center flex-col transform hover:scale-110 cursor-pointer border border-transparent hover:border-slate-700" *ngFor="let c of cours">
+
+    <div class=" flex items-center justify-center flex-col">
+      <p class="">Module: {{c.module}}</p>
+      <p class="">Heures: {{c.heures + "h"}} </p>
+      <p>Heures effectuées: {{c.hr.heures + "h" + c.hr.minutes}}</p>
+    </div>
+    <!-- <div>
+      <button class="bg-slate-400 py-3 px-8 m-2 rounded text-sm font-semibold hover:bg-opacity-75">Demander</button>
+    </div> -->
+  </div>
+
+
+</body>

@@ -1,4 +1,4 @@
-<form class="w-full h-full" [formGroup]="session">
+<form class="w-full h-full mt-14" [formGroup]="session">
 
   <div class="w-full h-[88vh] flex flex-col justify-center  items-center">
     <div class="w-[65%] h-[80%] bg-slate-200 shadow-lg rounded">
@@ -36,10 +36,7 @@
             <label for="" class="mr-7">Heure de fin</label>
             <input type="time" class="h-[80%] w-[40%] rounded shadow" formControlName="hf">
           </div>
-          <div class="w-full flex justify-evenly rounded bg-slate-200 items-center h-[20%] m-3 shadow-lg">
-            <label for="" class="mr-20">Durée</label>
-            <input type="time" class="h-[80%] w-[40%] rounded shadow" formControlName="duree">
-          </div>
+
           <div class="w-full flex justify-evenly rounded bg-slate-200 items-center h-[20%] m-3 shadow-lg">
             <label for="" class="mr-20">Date</label>
             <input type="date" class="h-[80%] w-[40%] rounded shadow" formControlName="date">

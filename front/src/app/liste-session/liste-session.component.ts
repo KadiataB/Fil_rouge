@@ -10,27 +10,24 @@ registerLocaleData(localeFr);
 @Component({
   selector: 'app-liste-session',
   templateUrl: './liste-session.component.html',
-  styleUrls: ['./liste-session.component.css']
+  styleUrls: ['./liste-session.component.css'],
 })
 export class ListeSessionComponent {
+  viewDate: Date = new Date();
 
-  viewDate:Date=new Date();
+  view: CalendarView = CalendarView.Week;
 
-  view:CalendarView= CalendarView.Week;
+  calendarView = CalendarView;
 
-  calendarView= CalendarView;
+  events: CalendarEvent[] = [];
 
-  events:CalendarEvent[]=[];
+  sessions: any[] = [];
 
+  activeDayIsOpen = false;
 
+  refresh = new Subject<void>();
 
-  sessions:any[]=[]
-
-  activeDayIsOpen=false;
-
-  refresh= new Subject<void>()
-
-  constructor( private service :CoursService) {
+  constructor(private service: CoursService) {
     // const event1 = {
     //   title:"kadia",
     //   start:new Date("2023-10-11T10:00"),
@@ -42,54 +39,54 @@ export class ListeSessionComponent {
     //   }
     // }
     //   this.events.push(event1)
-    this.getSessions()
-;
+    this.getSessions();
   }
 
-  dayClicked({date,events}: {date:Date; events:CalendarEvent[]}):void {
-    if(isSameMonth(date, this.viewDate)) {
-      if((isSameDay(this.viewDate, date) && this.activeDayIsOpen=== true)  || events.length===0 ) {
-        this.activeDayIsOpen=false
+  dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
+    if (isSameMonth(date, this.viewDate)) {
+      if (
+        (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
+        events.length === 0
+      ) {
+        this.activeDayIsOpen = false;
+      } else {
+        this.activeDayIsOpen = true;
       }
-       else {
-        this.activeDayIsOpen=true
-      }
-      this.viewDate=date
+      this.viewDate = date;
     }
   }
 
-  setValue(view:CalendarView) {
-    this.view=view;
+  setValue(view: CalendarView) {
+    this.view = view;
   }
   getSessions() {
-    this.service.allSessions().subscribe((data)=>{
+    this.service.allSessions().subscribe((data) => {
       console.log(data);
-// this.events=data.data
-   this.sessions=data.data
+      this.sessions = data.data;
 
-   this.sessions.forEach(s=>{
-    let event1 = {
-      title:`${s.cours_classe.classe.libelle} Professeur:${s.cours_classe.cours.professeur.nom}${s.cours_classe.cours.professeur.prenom} Module:${s.cours_classe.cours.module} Durée:${s.duree}`,
-      start:new Date(`${s.date}T${s.hd}`),
-      end:new Date(`${s.date}T${s.hf}`),
-      draggable:true,
-      resizable:{
-        beforeStart:true,
-        afterEnd:true
-      }
-    }
-      this.events.push(event1);
-    })
-    })
+      this.sessions.forEach((s) => {
+        let event1 = {
+          title: `Classe:${s.cours_classe.classe.libelle} </br> Professeur:${s.cours_classe.cours.professeur.nom}${s.cours_classe.cours.professeur.prenom} </br> Module:${s.cours_classe.cours.module} </br> Durée:${s.duree.heures}h${s.duree.minutes}`,
+          start: new Date(`${s.date}T${s.hd}`),
+          end: new Date(`${s.date}T${s.hf}`),
+          draggable: true,
+          resizable: {
+            beforeStart: true,
+            afterEnd: true,
+          },
+        };
+        this.events.push(event1);
+      });
+    });
   }
 
-  eventClicked(event:any) {
+  eventClicked(event: any) {
     console.log(event);
   }
 
-  eventTimesChanged(event:any) {
+  eventTimesChanged(event: any) {
     // console.log(event);
-    event.event.start= event.newStart;
+    event.event.start = event.newStart;
     event.event.end = event.newEnd;
     this.refresh.next();
   }

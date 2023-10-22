@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import {HttpClientModule } from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -12,6 +12,12 @@ import { ListeSessionComponent } from './liste-session/liste-session.component';
 import { CalendarDateFormatter, CalendarModule, CalendarNativeDateFormatter, DateAdapter, DateFormatterParams } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { InscriptionComponent } from './inscription/inscription.component';
+import { ConnexionComponent } from './connexion/connexion.component';
+import { ToastrModule } from 'ngx-toastr';
+import { AttacheComponent } from './attache/attache.component';
+import { authInterceptorProvider } from './auth.interceptor';
+import { ProfesseurComponent } from './professeur/professeur.component';
+import { SessionProfComponent } from './session-prof/session-prof.component';
 
 
 class CustomDateFormatter extends CalendarNativeDateFormatter {
@@ -30,18 +36,25 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
     SessionComponent,
     ListeCoursComponent,
     ListeSessionComponent,
-    InscriptionComponent
+    InscriptionComponent,
+    ConnexionComponent,
+    AttacheComponent,
+    ProfesseurComponent,
+    SessionProfComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    ToastrModule.forRoot(),
+    FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory })
   ],
   providers: [
-    {provide:CalendarDateFormatter, useClass:CustomDateFormatter}
+    {provide:CalendarDateFormatter, useClass:CustomDateFormatter},
+    [authInterceptorProvider]
   ],
   bootstrap: [AppComponent]
 })

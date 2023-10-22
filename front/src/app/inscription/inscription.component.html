@@ -1,1 +1,32 @@
-<p>inscription works!</p>
+<form  class="w-full h-full mt-16">
+  <div class="h-[88vh] w-full flex justify-center items-center">
+    <div class="h-[73vh] w-[60%] bg-slate-200 shadow-xl rounded flex justify-center items-center">
+      <div class="w-full h-[70%] flex flex-col justify-center items-center mt-10">
+
+        <div class="w-[80%] rounded border-dotted border-4 border-blue-400  h-[90%]">
+          <div class="w-full flex justify-evenly items-center h-[45%]">
+            <label for="" class="text-2xl shadow-xl">Classe</label>
+            <select [(ngModel)]="classe_id" name="classe_id" class="w-[40%] h-[40%] rounded shadow-lg">
+              <option  [value]="c.id" *ngFor="let c of classes">{{c.libelle}}</option>
+            </select>
+
+          </div>
+          <div class="w-full flex justify-evenly items-center h-[45%]">
+            <label for="excelFile" class="text-2xl shadow-xl">Elèves</label>
+            <label for="excelFile" class="w-[40%] h-[40%] cursor-pointer">
+              <img class="w-16 h-16" src="https://windowsfileviewer.com/images/types/xlsx.png" alt="excel">
+            </label>
+            <input id="excelFile" type="file" (change)="selectFile($event)" class="hidden">
+
+          </div>
+
+        </div>
+        <div class="w-[80%] flex justify-end mt-2">
+          <button (click)="inscrire()" type="submit" [disabled]="" class="border border-black p-2 rounded bg-blue-300">Inscrire</button>
+          <button class="border border-black ml-4 rounded bg-red-600 p-2">Annuler</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</form>

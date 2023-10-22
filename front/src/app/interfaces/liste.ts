@@ -6,6 +6,7 @@ import { Semestre } from "./semestre";
 export interface ListeC {
   id:number
   heures:number,
+  hr:Duree
   module:string,
   semestre: Semestre[],
   professeur: Professeur,
@@ -17,6 +18,12 @@ export interface Klasse {
   "id":number,
   "heures":string
 }
+
+export interface Duree {
+  "heures":number,
+  "minutes":number,
+}
+
 
 export interface ListeS {
   id: number,
