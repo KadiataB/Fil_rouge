@@ -15,7 +15,8 @@ class UsersImport implements ToModel
     */
     public function model(array $row)
     {
-        return new User([
+        $email= ['email'=>$row[2]];
+        return  User::firstOrCreate($email,[
             'prenom'     => $row[0],
             'nom'     => $row[1],
             'email'    => $row[2],
@@ -24,3 +25,4 @@ class UsersImport implements ToModel
         ]);
     }
 }
+

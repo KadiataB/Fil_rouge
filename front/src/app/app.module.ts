@@ -18,6 +18,8 @@ import { AttacheComponent } from './attache/attache.component';
 import { authInterceptorProvider } from './auth.interceptor';
 import { ProfesseurComponent } from './professeur/professeur.component';
 import { SessionProfComponent } from './session-prof/session-prof.component';
+import { NavComponent } from './nav/nav.component';
+import { TimeRangeDirective } from './time-range.directive';
 
 
 class CustomDateFormatter extends CalendarNativeDateFormatter {
@@ -40,7 +42,9 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
     ConnexionComponent,
     AttacheComponent,
     ProfesseurComponent,
-    SessionProfComponent
+    SessionProfComponent,
+    NavComponent,
+    TimeRangeDirective
   ],
   imports: [
     BrowserModule,

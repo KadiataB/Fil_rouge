@@ -34,6 +34,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post("/sessions/demandes", [SessionCoursController::class, "demande"]);
 
 });
+
 Route::get("/users/{id}/cours", [UserController::class, "coursByProf"]);
 Route::get("/users/{id}/sessions", [UserController::class, "sessionsByProf"]);
 
@@ -48,6 +49,7 @@ Route::get("/modules/{id}/profs",[ModuleController::class,"getProfesseursByIdMod
 
 Route::post("/cours",[CourController::class,"store"]);
 Route::get("/cours", [CourController::class, "index"]);
+Route::get("/cours/module/{module}", [CourController::class, "findByModule"]);
 
 Route::get("/users/{role}", [UserController::class, "getResponsable"]);
 Route::get("/cours/{id}/classes", [CourController::class, "getClasses"]);

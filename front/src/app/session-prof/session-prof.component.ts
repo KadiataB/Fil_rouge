@@ -56,4 +56,13 @@ this.sessionsProf()
   mod!.style.display="block";
 
  }
+
+ close() {
+
+  let mod=document.getElementById("staticModal");
+  let annuler=document.getElementById("staticModal");
+  mod!.style.display="none";
+  annuler!.style.display="none";
+
+ }
 }

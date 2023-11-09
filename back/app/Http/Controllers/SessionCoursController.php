@@ -40,6 +40,44 @@ class SessionCoursController extends Controller
     public function create(Request $request)
     {
         DB::beginTransaction();
+        
+               if ($request->hd >= $request->hf) {
+                return response([
+                    "message" => "L'heure de début doit être antérieure à l'heure de fin."
+                ], Response::HTTP_BAD_REQUEST);
+              }
+
+              $hd = Carbon::parse($request->hd);
+              $hf = Carbon::parse($request->hf);
+
+
+                if ($hd->lessThan(Carbon::parse('08:00:00')) || $hf->greaterThan(Carbon::parse('16:00:00'))) {
+                    return response([
+                        "message" => "L'heure de début doit être supérieure ou égale à 8H et l'heure de fin doit être inférieure ou égale à 16h."
+                    ], Response::HTTP_BAD_REQUEST);
+                }
+
+
+              if ($hd->diffInHours($hf) < 1) {
+                  return response([
+                      "message" => "L'écart entre l'heure de début et l'heure de fin doit être d'au moins 1 heure."
+                  ], Response::HTTP_BAD_REQUEST);
+
+              }
+              if ($hd->lessThan(Carbon::parse('08:00:00')) || $hf->greaterThan(Carbon::parse('16:00:00'))) {
+                return response([
+                    "message" => "L'heure de début doit être supérieure ou égale à 8H et l'heure de fin doit être inférieure ou égale à 16h."
+                ], Response::HTTP_BAD_REQUEST);
+            }
+              $dateActuelle = Carbon::now();
+            //   return $dateActuelle;
+            // $date=explode()
+
+              if ($dateActuelle->gt($request->date)) {
+                   return response([
+                    "message" => "La date actuelle est ultérieure à la date passée."
+                ], Response::HTTP_BAD_REQUEST);
+            }
 
        $c= CoursClasse::where(["cours_id"=>$request->cours_id,"classe_id"=>$request->classe_id])->first();
     //    return $c;
@@ -53,7 +91,25 @@ class SessionCoursController extends Controller
              }
          }
        $sessions= SessionCours::where('date',$request->date)->get();
-       if(!$request->salle_id) {}
+       $duree= $this->heureMinutesInSeconds($request->hf) - $this->heureMinutesInSeconds($request->hd);
+       if(!$request->salle_id) {
+        $session = SessionCours::create([
+            "date"=>$request->date,
+            "hd"=>$request->hd,
+            "hf"=>$request->hf,
+            "duree"=>$duree,
+            "cours_classe_id"=>$c->id,
+            "mode"=>$request->mode,
+
+
+            ]);
+         Cours::find($request->cours_id)->increment('hr',$duree);
+            ClasseSession::create([
+                "classe_id"=>$request->classe_id,
+                "session_cours_id"=>$session->id,
+            ]);
+
+       }
        else {
            foreach ($sessions as $key ) {
                $cs=  ClasseSession::where(["session_cours_id"=>$key->id,"salle_id"=>$request->salle_id])->get();
@@ -69,32 +125,6 @@ class SessionCoursController extends Controller
            }
        }
 
-       if ($request->hd >= $request->hf) {
-        return response([
-            "message" => "L'heure de début doit être antérieure à l'heure de fin."
-        ], Response::HTTP_BAD_REQUEST);
-      }
-
-      $hd = Carbon::parse($request->hd);
-      $hf = Carbon::parse($request->hf);
-
-      if ($hd->diffInHours($hf) < 1) {
-          return response([
-              "message" => "L'écart entre l'heure de début et l'heure de fin doit être d'au moins 1 heure."
-          ], Response::HTTP_BAD_REQUEST);
-
-      }
-      $dateActuelle = Carbon::now();
-    //   return $dateActuelle;
-    // $date=explode()
-
-      if ($dateActuelle->gt($request->date)) {
-           return response([
-            "message" => "La date actuelle est ultérieure à la date passée."
-        ], Response::HTTP_BAD_REQUEST);
-    }
-
-    $duree= $this->heureMinutesInSeconds($request->hf) - $this->heureMinutesInSeconds($request->hd);
     $cours=Cours::find($request->cours_id);
     if ($cours->hr === $cours->heures) {
         return response([
@@ -147,6 +177,11 @@ class SessionCoursController extends Controller
         }
         $user=Auth::user();
         if ($user->role ==="professeur") {
+            if(!$request->motif) {
+                return response([
+                    "message" => "Veillez entrer le motif",
+                ], Response::HTTP_BAD_REQUEST);
+            }
              DemandeAnnulation::create([
                 "motif"=>$request->motif,
                 "etat"=>"en_attente",

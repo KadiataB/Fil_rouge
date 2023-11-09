@@ -17,6 +17,7 @@ use Illuminate\Http\Client\Request as ClientRequest;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Excel as ExcelExcel;
 use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
@@ -36,23 +37,33 @@ class UserController extends Controller
 
         $eleves=Excel::toArray(new UsersImport,$fichier);
         // return $eleves;
+        $exist=[];
         foreach ($eleves as $e) {
             foreach ($e as $eleve) {
+
+
                 $el=(new UsersImport)->model($eleve);
                 $el->save();
                 $id=$el->id;
 
-                Inscription::create([
+                $inscrit= Inscription::where(["classe_id"=>$request->classe_id,"annee_scolaire_id"=>$request->annee_scolaire_id,"eleve_id"=>$id])->first();
+        //    return $inscrit;
+           if($inscrit) {
+            $exist[]=$inscrit;
+
+           }
+                Inscription::firstOrCreate([
                     "eleve_id"=>$id,
                     "classe_id"=>$request->classe_id,
                     "annee_scolaire_id"=>$request->annee_scolaire_id
                 ]);
                 $classe=  Classe::where("id",$request->classe_id)->first();
                 $classe->increment('effectif');
-              }
+            }
           }
           return response()->json([
              "message"=>"inscription réussie",
+             "data"=>$exist
           ]);
       }
 

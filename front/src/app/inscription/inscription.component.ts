@@ -51,6 +51,8 @@ export class InscriptionComponent implements OnInit{
     this.service.import(this.formData).subscribe((res)=>{
       console.log(res);
       this.toastr.success('Inscription réussie');
+    },error=>{
+      this.toastr.error(error.error.message)
     })
   }
 }

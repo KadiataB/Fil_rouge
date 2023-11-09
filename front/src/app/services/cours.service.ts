@@ -106,6 +106,9 @@ export class CoursService {
     return this.http.get<any>(`${this.apiUrl}users/${id}/sessions`)
   }
 
- 
+  findByModule(module:string):Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}cours/module/${module}`)
   }
+
+}
 

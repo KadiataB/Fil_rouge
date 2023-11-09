@@ -7,6 +7,7 @@ use App\Http\Resources\CoursResource;
 use App\Models\Cours;
 use App\Models\CoursClasse;
 use App\Models\CoursSemestre;
+use App\Models\Module;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -109,10 +110,24 @@ class CourController extends Controller
              "data"=>$cours
          ], Response::HTTP_ACCEPTED);
      }
-    public function create()
+    public function findByModule($module)
     {
-        //
+      $module= Module::where("libelle", $module)->first();
+        if ($module) {
+            $cours= Cours::where("module_id", $module->id)->get();
+            if (count($cours) > 0) {
+                   return response([
+                       "message" => "voici les cours",
+                       "data"=>CoursResource::collection($cours)
+                   ], Response::HTTP_OK);
+               }
+        }else {
+            return response([
+                "message" => "Ce module n'existe pas",
+            ]);
+        }
     }
+
 
     /**
      * Store a newly created resource in storage.

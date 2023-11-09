@@ -11,8 +11,8 @@ import { CoursService } from '../services/cours.service';
 })
 export class ConnexionComponent {
 
-  email=new FormControl('');
-  password=new FormControl('');
+  // email=new FormControl('');
+  // password=new FormControl('');
   token:string=''
   constructor(private fb:FormBuilder, private authService:CoursService, private route:Router, private toastr:ToastrService){ }
 
@@ -42,14 +42,14 @@ export class ConnexionComponent {
 
         }
         if(this.token && data.user.role==='responsable') {
-          this.route.navigate(['/responsable']);
+          this.route.navigate(['/liste-cours']);
           this.toastr.success("BIENVENUE");
         }
 
         if (this.token && data.user.role==='professeur') {
           this.route.navigate(['/professeur']);
           this.toastr.success("BIENVENUE");
-         
+
         }
       },error=>{
         this.toastr.error(error.error.message)
@@ -59,18 +59,7 @@ export class ConnexionComponent {
   }
 
 
-  // stock(user:string) {
-  //     let tokens = localStorage.getItem('tokens')?.toString();
-  //     // let valeurs: string[] = [];
-  //     if (!tokens) {
-  //       valeurs.push(user);
-  //       localStorage.setItem('tokens', JSON.stringify(valeurs));
-  //     } else {
-  //       let valeur = JSON.parse(tokens);
-  //       valeur.push(user);
-  //       localStorage.setItem('tokens', JSON.stringify(valeur));
-  //     }
-  // }
+
 
 
 }

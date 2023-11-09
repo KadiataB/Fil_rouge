@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Classe } from '../interfaces/classe';
@@ -30,8 +30,8 @@ export class SessionComponent implements OnInit {
       classe_id: '',
       cours_id:'',
       mode: '',
-      hd: '',
-      hf: '',
+      hd: ['', [Validators.required, Validators.pattern(/^([0-1][0-9]|2[0-3]):[0-5][0-9]$/)]],
+      hf: ['', [Validators.required, Validators.pattern(/^([0-1][0-9]|2[0-3]):[0-5][0-9]$/)]],
       date:''
     });
   }

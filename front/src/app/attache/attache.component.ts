@@ -35,7 +35,8 @@ this.demande()
    console.log(id);
 
     this.service.demande(data).subscribe((res)=>{
-      this.toastr.success(res.message)
+      this.toastr.success(res.message);
+      this.demande();
       console.log(res);
     })
  }
@@ -46,8 +47,10 @@ this.demande()
     id:id
   }
    this.service.demande(data).subscribe((res)=>{
-    this.toastr.error(res.message)
+    this.toastr.error(res.message);
+    this.demande();
      console.log(res);
+
    })
 }
 }

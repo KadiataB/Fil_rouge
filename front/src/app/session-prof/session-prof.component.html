@@ -1,3 +1,4 @@
+<app-nav></app-nav>
 <body
   class="bg-slate-100 p-6  flex justify-center items-center h-[100%] mt-16 w-full flex-wrap gap-6 overflow-y-scroll">
   <div
@@ -26,19 +27,19 @@
                 <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
                     Renseignez votre motif
                 </h3>
-                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                <button type="button" (click)="close()" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                     </svg>
-                    <span class="sr-only">Close modal</span>
+                    <span class="sr-only" >Close modal</span>
                 </button>
             </div>
             <div class="p-6 space-y-6">
            <input type="text" [(ngModel)]="motif"  class="w-full rounded shadow-2xl">
             </div>
             <div class="flex items-center justify-center p-6 space-x-2 border-gray-200 rounded-b dark:border-gray-600">
-                <button (click)="annulation()"  type="button"  class="text-white bg-green-700  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Valider</button>
-                <button  type="button" class="text-white bg-red-600 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 ">Annuler</button>
+                <button (click)="annulation()" (click)="close()" type="button" id="valider"  class="text-white bg-green-700  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Valider</button>
+                <button id="annuler" (click)="close()"  type="button" class="text-white bg-red-600 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 ">Annuler</button>
             </div>
         </div>
     </div>

@@ -1,6 +1,8 @@
+<app-nav></app-nav>
+
 <form  [formGroup]="cours" (submit)="insertCours()" class="w-full h-full mt-14">
 <div class="h-[88vh] w-full flex justify-center items-center">
-    <div class="h-[73vh] w-[60%] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gray-700 via-gray-900 to-black shadow-lg rounded">
+    <div class="h-[73vh] w-[60%] bg-slate-200  shadow-lg rounded">
      <div class="w-full h-20 bg-slate-400 flex justify-evenly items-center shadow-lg rounded ">
        <select formControlName="semestre_id" id=""  class="w-[30%] h-[45%] rounded shadow-lg">
         <option *ngFor="let semestre of semestres"  [value]="semestre.id">{{semestre.libelle}}</option>
@@ -9,7 +11,7 @@
         <option *ngFor="let classe of classes" [value]="classe.id">{{classe.libelle}}</option>
        </select>
      </div>
-     <div class="w-full h-[70%] flex flex-col justify-center items-center mt-10 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gray-700 via-gray-900 to-black ">
+     <div class="w-full h-[70%] flex flex-col justify-center items-center mt-10 bg-slate-200">
 
         <div class="w-[80%] rounded border-dotted border-4 border-blue-400  h-[90%]">
           <div class="w-full flex justify-evenly items-center h-[45%]">

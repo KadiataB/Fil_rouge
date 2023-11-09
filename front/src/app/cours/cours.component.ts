@@ -8,7 +8,7 @@ import { Module } from '../interfaces/module';
 import { ModuleProfesseur, Professeur } from '../interfaces/module-professeur';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-
+import Swal from 'sweetalert2'
 @Component({
   selector: 'app-cours',
   templateUrl: './cours.component.html',
@@ -46,7 +46,13 @@ ngOnInit(): void {
     this.service.insertCours(this.cours.value).subscribe((res)=>{
       console.log(res);
       this.router.navigate(['/liste-cours'])
-      this.toastr.success('Cours ajouté avec succès');
+      Swal.fire({
+        title: 'Success!',
+        text: 'Do you want to continue',
+        icon: 'success',
+        confirmButtonText: 'Cool'
+      })
+      // this.toastr.success('Cours ajouté avec succès');
 
     })
 
